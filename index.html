@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>架空疑問展</title>
+  <link rel="icon" href="symbols/疑問図鑑_000.png">
+
+  <style>
+    body {
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      background: #fafafa;
+      color: #222;
+      margin: 40px;
+      line-height: 1.8;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: normal;
+      margin-bottom: 40px;
+    }
+
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 56px;
+    }
+
+    .symbol {
+      width: 100px;
+      margin-right: 24px;
+      text-align: center;
+    }
+
+    .symbol img {
+      width: 80px;
+      height: auto;
+    }
+
+    .text {
+      max-width: 600px;
+    }
+
+    .memo {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 8px;
+    }
+
+  /* レイアウトはお好みで */
+  .entry {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  }
+
+  /* 記号 */
+  .symbol img {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  }
+
+  .hidden {
+  opacity: 0;
+  pointer-events: none;
+  }
+
+  /*ここからは背景に設定*/
+
+  #floating-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* クリック邪魔しない */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-symbol {
+  position: absolute;
+  opacity: 0.08;
+  animation: float 20s linear infinite;
+  filter: blur(0.3px);
+}
+
+@keyframes float {
+  from {
+    transform: translateY(110vh);
+  }
+  to {
+    transform: translateY(-20vh);
+  }
+}
+
+
+
+  </style>
+</head>
+
+
+<body>
+
+  <div id="floating-layer"></div>
+
+  <script>
+const symbols = [
+  "symbols/疑問図鑑_001.png",
+  "symbols/疑問図鑑_002.png",
+  "symbols/疑問図鑑_003.png",
+  "symbols/疑問図鑑_004.png",
+  "symbols/疑問図鑑_005.png",
+  "symbols/疑問図鑑_006.png",
+  "symbols/疑問図鑑_007.png",
+  "symbols/疑問図鑑_008.png",
+  "symbols/疑問図鑑_009.png"
+];
+
+const layer = document.getElementById("floating-layer");
+
+for (let i = 0; i < 12; i++) {
+  const img = document.createElement("img");
+  img.src = symbols[Math.floor(Math.random() * symbols.length)];
+  img.className = "floating-symbol";
+  img.style.left = Math.random() * 100 + "vw";
+  img.style.animationDuration = 15 + Math.random() * 20 + "s";
+  img.style.width = 40 + Math.random() * 60 + "px";
+  layer.appendChild(img);
+}
+</script>
+
+  <h1>存在したかもしれない　架空の記号・草稿</h1>
+
+  <!-- 疑問図鑑 001 -->
+  <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_001.png" alt="疑問図鑑 001">
+    </div>
+    <div class="text">
+      <p>
+        ？のピリオドが句点に変化したもの。起源は不明だが外国から疑問符が伝わっていく段階でピリオドが句点として
+        伝わったことが原因と考えられている。また、和疑問符とも呼ばれている。
+      </p>
+      <div class="memo">
+        疑問図鑑 001
+      </div>
+    </div>
+  </div>
+
+  <!-- 疑問図鑑 002 -->
+  <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_002.png" alt="疑問図鑑 002">
+    </div>
+    <div class="text">
+      <p>
+        疑問図鑑 001のように日本に伝わっていく段階でピリオドが句点に変わった感嘆符 これは和感嘆符と呼ばれている
+        
+      </p>
+      <div class="memo">
+        疑問図鑑 002
+      </div>
+    </div>
+  </div>
+
+
+    <!-- 疑問図鑑 003 -->
+  <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_003.png" alt="疑問図鑑 003">
+    </div>
+    <div class="text">
+      <p>
+        とても疲れた様子を表す記号　！の形が歪み記録され、後で「とても疲れた様子を表す記号」となった。
+      </p>
+      <div class="memo">
+        疑問図鑑 003
+      </div>
+    </div>
+  </div>
+
+      <!-- 疑問図鑑 004 -->
+  <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_004.png" alt="疑問図鑑 004">
+    </div>
+    <div class="text">
+      <p>
+        感謝を表す記号　図鑑番号003のように！の形が歪み記録され、後で「感謝を表す記号」となった。
+      </p>
+      <div class="memo">
+        疑問図鑑 004
+      </div>
+    </div>
+  </div>
+
+        <!-- 疑問図鑑 005 -->
+  <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_005.png" alt="疑問図鑑 005">
+    </div>
+    <div class="text">
+      <p>
+        ？と読点が合体した姿　主に文を終わらせず続けたいときなどに使われる
+      </p>
+      <div class="memo">
+        疑問図鑑 005
+      </div>
+    </div>
+  </div>
+
+        <!-- 疑問図鑑 006 -->
+    <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_006.png" alt="疑問図鑑 006">
+    </div>
+    <div class="text">
+      <p>
+        !と読点が合体した姿　主に文を終わらせず続けたいときなどに使われる
+      </p>
+      <div class="memo">
+        疑問図鑑 006
+      </div>
+    </div>
+  </div>
+
+<!-- 疑問図鑑 007 -->
+<div class="entry">
+  <div class="symbol">
+    <img
+      src="symbols/疑問図鑑_007.png"
+      alt="疑問図鑑 007"
+      onclick="this.classList.add('hidden')"
+    >
+  </div>
+
+  <div class="text">
+    <p>
+      たくさんの？が合体した姿。主にそこに存在したかもしれないことを示す記号として使われる。
+      起源は不明。これは超疑問符と呼ばれている。
+    </p>
+    <div class="memo">疑問図鑑 007</div>
+  </div>
+</div>
+
+
+            <!-- 疑問図鑑 008 -->
+    <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_008.png" alt="疑問図鑑 008">
+    </div>
+    <div class="text">
+      <p>
+        二重否定を表す記号
+      </p>
+      <div class="memo">
+        疑問図鑑 008
+      </div>
+    </div>
+  </div>
+
+              <!-- 疑問図鑑 009 -->
+    <div class="entry">
+    <div class="symbol">
+      <img src="symbols/疑問図鑑_009.png" alt="疑問図鑑 009">
+    </div>
+    <div class="text">
+      <p>
+        数学記号πの誤表記　また日本語では、カタカナの「ニル」に似ていることから「煮る」ことを表す記号となっている
+      </p>
+      <div class="memo">
+        疑問図鑑 009
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
