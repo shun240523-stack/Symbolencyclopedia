@@ -14,11 +14,11 @@
       line-height: 1.8;
     }
 
-    h1 {
-      font-size: 1.4rem;
-      font-weight: normal;
-      margin-bottom: 40px;
-    }
+  h1 {
+    padding: 0.5em;/*文字周りの余白*/
+    color: #010101;/*文字色*/
+    border-bottom: solid 3px #516ab6;/*下線*/
+  }
 
     .entry {
       display: flex;
@@ -81,6 +81,38 @@
   animation: float 20s linear infinite;
   filter: blur(0.3px);
 }
+/* 画面全体を覆う */
+#start-window {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* 中央のウィンドウ */
+.start-box {
+  background: #fff;
+  padding: 24px 32px;
+  width: 500px;
+  border: 2px solid #000;
+  text-align: center;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.start-box h2 {
+  margin-top: 0;
+}
+
+.start-box button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 
 @keyframes float {
   from {
@@ -128,9 +160,11 @@ for (let i = 0; i < 12; i++) {
   img.style.width = 40 + Math.random() * 60 + "px";
   layer.appendChild(img);
 }
+
+
 </script>
 
-  <h1>空間疑問展</h1>
+  <h1>架空疑問展</h1>
 
   <!-- 疑問図鑑 001 -->
   <div class="entry">
@@ -337,6 +371,28 @@ for (let i = 0; i < 12; i++) {
 
 
   <h5>現在図鑑に登録されているのはここまでです。　新しい記号が登録されるまでお待ち下さい。</h5>
+
+<!-- スタートウィンドウ -->
+<div id="start-window">
+  <div class="start-box">
+    <h2>架空疑問展へようこそ</h2>
+
+  <div class="start-text">
+    <p>ここは思いつきの記号をまとめたジョークサイトです。</p>
+    <p>ジョークであることを理解してお楽しみください。</p>
+</div>
+
+    <button id="start-btn">入場する</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("start-btn").addEventListener("click", () => {
+    document.getElementById("start-window").style.display = "none";
+  });
+</script>
+
+
 
 </body>
 </html>
