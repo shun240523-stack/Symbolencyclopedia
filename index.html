@@ -14,6 +14,12 @@
       line-height: 1.8;
     }
 
+    /* pの空間を狭める*/
+    p {
+  margin: 0em 0;
+    }
+
+
   h1 {
     padding: 0.5em;/*文字周りの余白*/
     color: #010101;/*文字色*/
@@ -151,8 +157,6 @@ const symbols = [
   "symbols/疑問図鑑_015.png",
   "symbols/疑問図鑑_016.png",
   "symbols/疑問図鑑_017.png",
-  "symbols/疑問図鑑_018.png",
-  "symbols/疑問図鑑_019.png"
 ];
 
 const layer = document.getElementById("floating-layer");
@@ -173,116 +177,208 @@ for (let i = 0; i < 12; i++) {
   <h1>架空疑問展</h1>
 
   <!-- 疑問図鑑 001 -->
-  <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_001.png" alt="疑問図鑑 001">
-    </div>
-    <div class="text">
-      <p>
-        ？のピリオドが句点に変化したもの。起源は不明だが外国から疑問符が伝わっていく段階でピリオドが句点として
-        伝わったことが原因と考えられている。また、和疑問符とも呼ばれている。
-      </p>
-      <div class="memo">
-        疑問図鑑 001
-      </div>
-    </div>
+
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_001.png" alt="疑問図鑑 001">
   </div>
+
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：句点和疑問符　読み方：くてんわぎもんふ
+    </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：？のピリオドが句点になったもの<p>
+    由来：外国から疑問符が伝わるときにピリオドが句点として伝わったこと</p>
+
+    <div class="memo">疑問図鑑 001</div>
+  </div>
+</div>
+
 
   <!-- 疑問図鑑 002 -->
-  <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_002.png" alt="疑問図鑑 002">
-    </div>
-    <div class="text">
-      <p>
-        疑問図鑑 001のように日本に伝わっていく段階でピリオドが句点に変わった感嘆符 これは和感嘆符と呼ばれている
-        
-      </p>
-      <div class="memo">
-        疑問図鑑 002
-      </div>
-    </div>
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_002.png" alt="疑問図鑑 002">
   </div>
 
+  <div class="text">
 
-    <!-- 疑問図鑑 003 -->
-  <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_003.png" alt="疑問図鑑 003">
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：句点和感嘆符　読み方：くてんかんたんふ
     </div>
-    <div class="text">
-      <p>
-        とても疲れた様子を表す記号　！の形が歪み記録され、後で「とても疲れた様子を表す記号」となった。
-      </p>
-      <div class="memo">
-        疑問図鑑 003
-      </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
     </div>
+
+
+    <!-- 説明 -->
+    意味：！のピリオドが句点になったもの<p>
+    由来：外国から感嘆符が伝わるときにピリオドが句点として伝わったこと</p>
+
+    <div class="memo">疑問図鑑 002</div>
+  </div>
+</div>
+
+  <!-- 疑問図鑑 003 -->
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_003.png" alt="疑問図鑑 003">
   </div>
 
-      <!-- 疑問図鑑 004 -->
-  <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_004.png" alt="疑問図鑑 004">
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：疲感嘆符　読み方：らんたんふ
     </div>
-    <div class="text">
-      <p>
-        感謝を表す記号　疑問番号003のように！の形が歪み記録され、後で「感謝を表す記号」となった。
-      </p>
-      <div class="memo">
-        疑問図鑑 004
-      </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
     </div>
+
+
+    <!-- 説明 -->
+    意味：とても疲れたことを表す記号<p>
+    由来：！の形が歪んだものにあとから意味が付けられた</p>
+
+    <div class="memo">疑問図鑑 003</div>
   </div>
+</div>
+
+  <!-- 疑問図鑑 004 -->
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_004.png" alt="疑問図鑑 004">
+  </div>
+
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：感嘆謝符感　読み方：かんたんしゃふ
+    </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：感謝を表す記号<p>
+    由来：！の形が歪んだものにあとから意味が付けられた</p>
+
+    <div class="memo">疑問図鑑 003</div>
+  </div>
+</div>
+
+
 
         <!-- 疑問図鑑 005 -->
   <div class="entry">
     <div class="symbol">
       <img src="symbols/疑問図鑑_005.png" alt="疑問図鑑 005">
     </div>
-    <div class="text">
-      <p>
-        ？と読点が合体した姿　主に文を終わらせず続けたいときなどに使われる
-      </p>
-      <div class="memo">
-        疑問図鑑 005
-      </div>
+
+      <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：読点和疑問符　読み方：とうてんわぎもんふ
     </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：読点と？が合体した<p>
+    由来：疑問番号　001,002</p>
+
+    <div class="memo">疑問図鑑 003</div>
   </div>
+</div>
+
 
         <!-- 疑問図鑑 006 -->
-    <div class="entry">
+  <div class="entry">
     <div class="symbol">
       <img src="symbols/疑問図鑑_006.png" alt="疑問図鑑 006">
     </div>
-    <div class="text">
-      <p>
-        !と読点が合体した姿　主に文を終わらせず続けたいときなどに使われる
-      </p>
-      <div class="memo">
-        疑問図鑑 006
-      </div>
+
+      <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：読点和感嘆符　読み方：とうてんわかんたんふ
     </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：読点と！が合体した<p>
+    由来：疑問番号　001,002</p>
+
+    <div class="memo">疑問図鑑 003</div>
   </div>
+</div>
 
 <!-- 疑問図鑑 007 -->
 <div class="entry">
-  <div class="symbol">
-    <img
-      src="symbols/疑問図鑑_007.png"
+   <div class="symbol">
+     <img src="symbols/疑問図鑑_007.png"
       alt="疑問図鑑 007"
-      onclick="this.classList.add('hidden')"
-    >
-  </div>
+      onclick="this.classList.add('hidden')" > 
+    </div>
 
   <div class="text">
-    <p>
-      たくさんの？が合体した姿。主にそこに存在したかもしれないことを示す記号として使われる。
-      起源は不明。これは超疑問符と呼ばれている。
-    </p>
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：超疑問符　読み方：ちょうぎもんふ
+    </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明（宗教団体が作ったという説が有力）</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：そこにあったかもしれないものを表す記号<p>
+    由来：クエスチョンマークを4つ合体させたもの</p>
+
     <div class="memo">疑問図鑑 007</div>
   </div>
 </div>
+
 
 
             <!-- 疑問図鑑 008 -->
@@ -290,193 +386,318 @@ for (let i = 0; i < 12; i++) {
     <div class="symbol">
       <img src="symbols/疑問図鑑_008.png" alt="疑問図鑑 008">
     </div>
-    <div class="text">
-      <p>
-        二重否定を表す記号
-      </p>
-      <div class="memo">
-        疑問図鑑 008
-      </div>
+    
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：二重否符　読み方：にじゅうひふ
     </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：二重否定を表す記号<p>
+    由来：ノットイコールとチルダ</p>
+
+    <div class="memo">疑問図鑑 008</div>
   </div>
+</div>
+
 
               <!-- 疑問図鑑 009 -->
     <div class="entry">
     <div class="symbol">
       <img src="symbols/疑問図鑑_009.png" alt="疑問図鑑 009">
     </div>
-    <div class="text">
-      <p>
-        数学記号πの誤表記　また日本語では、カタカナの「ニル」に似ていることから「煮る」ことを表す記号となっている
-      </p>
-      <div class="memo">
-        疑問図鑑 009
-      </div>
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：不明
     </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
+    </div>
+
+
+    <!-- 説明 -->
+    意味：数学記号πの誤表記　また日本ではカタカナの「ニル」に似ているので、
+    <p>「煮る」や「似ている」を表す記号になっている</p>
+    由来：π</p>
+
+    <div class="memo">疑問図鑑 009</div>
+  </div>
+</div>
+
+
+                <!-- 疑問図鑑 010 -->
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_010.png" alt="疑問図鑑 010">
   </div>
 
-                <!-- 疑問図鑑 0010 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_010.png" alt="疑問図鑑 010">
+  <div class="text">
+    <div class="symbol-name known">
+      名前：俯瞰符、俯簡符、利感符
     </div>
-    <div class="text">
-      <p>
-        用途不明　データによって書かれている情報に違いがあり、　俯瞰符、俯簡符、利感符など等様々な呼び方がある sns等において皮肉を表す記号として扱われるが多い
-      </p>
-      <div class="memo">
-        疑問図鑑 010
-      </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
     </div>
+
+    <p>意味：不明（いくつか説あり）</p>
+    <p>インターネットでは皮肉を表す記号として使われている</p>
+    <p>由来：不明</p>
+
+    <div class="memo">疑問図鑑 010</div>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_011.png" alt="">
   </div>
 
-                  <!-- 疑問図鑑 0011 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_011.png" alt="疑問図鑑 011">
+  <div class="text">
+    <div class="symbol-name">
+      名前：不完全疑問符
     </div>
-    <div class="text">
-      <p>
-        どうでもいいことを聞く際に使う記号　不完全疑問符と呼ばれている（諸説あり）
-      </p>
-      <div class="memo">
-        疑問図鑑 011
-      </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
     </div>
+
+    <p>意味：どうでもいいことを聞く際に使う記号</p>
+    <p>由来：疑問符</p>
+
+    <div class="memo">疑問図鑑 011</div>
+  </div>
+</div>
+
+
+
+    <!-- 疑問図鑑 0012 -->
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_012.png" alt="012">
   </div>
 
-                    <!-- 疑問図鑑 0012 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_空白.png" alt="疑問図鑑 012">
+  <div class="text">
+    <div class="symbol-name">
+      名前:<s>不明</s>　ハイパーピリオド
     </div>
-    <div class="text">
-      <p>
-        文を完全に終わらせる意味を持つ記号　使用例がほぼなく記録にも残っていない
-      </p>
-      <div class="memo">
-        疑問図鑑 012
-      </div>
+
+    <div class="author">
+      <span class="author-label">作者:</span>
+      <span class="author-name"><s>不明</s>　世界記号統一団体によって修正済み</span>
     </div>
+
+    <p>意味：文を完全に終わらせる記号　<s>記録がないため形が不明</s></p>
+    <p>由来：<s>不明</s>　ピリオド</p>
+
+    <div class="memo">疑問図鑑 012</div>
   </div>
+</div>
+
 
                       <!-- 疑問図鑑 0013 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_013.png" alt="疑問図鑑 013">
-    </div>
-    <div class="text">
-      <p>
-        「何かが見える」ことを表した記号
-      </p>
-      <div class="memo">
-        疑問図鑑 013
-      </div>
-    </div>
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_013.png" alt="013">
   </div>
+
+  <div class="text">
+    <div class="symbol-name">
+      名前：不透明疑問符
+    </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
+    </div>
+
+    <p>意味：「何かが見える」ことを表した記号</p>
+    <p>由来：疑問符</p>
+
+    <div class="memo">疑問図鑑 013</div>
+  </div>
+</div>
+
 
                         <!-- 疑問図鑑 0014 -->
     <div class="entry">
     <div class="symbol">
       <img src="symbols/疑問図鑑_014.png" alt="疑問図鑑 014">
     </div>
-    <div class="text">
-      <p>
-        「この文は訂正済みもしくは検閲済み」を表す記号
-      </p>
-      <div class="memo">
-        疑問図鑑 014
-      </div>
+  <div class="text">
+    <div class="symbol-name">
+      名前：修正符もしくは検閲符
     </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">世界記号統一団体</span>
+    </div>
+
+    <p>意味：この文は修正済みもしくは検閲済みを表す記号</p>
+    <p>由来：チェックマーク</p>
+
+        <div class="memo">疑問図鑑 014</div>
+  </div>
+</div>
+    
+
+  <!-- 疑問図鑑 0015 -->
+
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_015.png" alt="疑問図鑑 015">
   </div>
 
-                          <!-- 疑問図鑑 0015 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_015.png" alt="疑問図鑑 015">
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+    名前：真実の鍵
     </div>
-    <div class="text">
-      <p>
-        問いがそのまま答えに直結することを示す記号。
-        アート作家が真実の鍵という名前で書いたものが正式
-        に記号として採用されたもの。ドット絵がオリジナルである
-      </p>
-      <div class="memo">
-        疑問図鑑 015
-      </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">同一アート作家</span>
+      <span class="author-range">（015〜019）</span>
     </div>
+
+
+    <!-- 説明 -->
+    意味：問いが直接答えにつながることを表す記号
+    
+
+    <div class="memo">疑問図鑑 016</div>
+  </div>
+</div>
+
+  <!-- 疑問図鑑 0016 -->
+
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_016.png" alt="疑問図鑑 016">
   </div>
 
-                          <!-- 疑問図鑑 0016 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_016.png" alt="疑問図鑑 016">
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+      名前：ベタクラメーション
     </div>
-    <div class="text">
-      <p>
-        「じわじわと来る驚き」や「2番手に甘んじる者に意地」を表す記号
-        　疑問番号015と同じアート作家が作ったもの。　作品、記号名　ベタクラメーション
-        
-      </p>
-      <div class="memo">
-        疑問図鑑 016
-      </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">同一アート作家</span>
+      <span class="author-range">（015〜019）</span>
     </div>
+
+
+    <!-- 説明 -->
+    
+    　意味：「じわじわと来る驚き」や「2番手に甘んじる者に意地」を表す記号。
+    
+
+    <div class="memo">疑問図鑑 016</div>
   </div>
+</div>
+
 
                             <!-- 疑問図鑑 0017 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_017.png" alt="疑問図鑑 017">
-    </div>
-    <div class="text">
-      <p>
-        pcでのシステム権限（pcの最高権利）を表す記号。
-        疑問番号015,016と同じ作者が作っている。
-        pain社に売られた後この意味が定着した。
-        
-      </p>
-      <div class="memo">
-        疑問図鑑 017
-      </div>
-    </div>
+
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_017.png" alt="疑問図鑑 017">
   </div>
+
+  <div class="text">
+
+    <!-- 名前 -->
+    <div class="symbol-name known">
+      名前：pcの究極権利
+    </div>
+
+    <!-- 作者 -->
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">同一アート作家</span>
+      <span class="author-range">（015〜019）</span>
+    </div>
+
+
+    <!-- 説明 -->
+     意味：pcでのシステム権限を表す記号。
+      pain社に売られたあとに意味が定着した
+     
+
+    <div class="memo">疑問図鑑 017</div>
+  </div>
+</div>
 
                               <!-- 疑問図鑑 0018 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_018.png" alt="疑問図鑑 018">
-    </div>
-    <div class="text">
-      <p>
-        「snsのやり過ぎで考えるエネルギーが無い」ことを表す記号
-        疑問番号　016...017　と同じ作者である 名前　デジタル・バーンアウト
-
-        
-      </p>
-      <div class="memo">
-        疑問図鑑 018
-      </div>
-    </div>
+<div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_018.png" alt="018">
   </div>
+
+  <div class="text">
+    <div class="symbol-name">
+      名前：デジタル　バーンアウト
+    </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
+    </div>
+
+    <p>意味：snsのやり過ぎで疲れた状態</p>
+    <p>由来：バッテリー　絵文字</p>
+
+    <div class="memo">疑問図鑑 018</div>
+  </div>
+</div>
+
 
                                 <!-- 疑問図鑑 0019 -->
-    <div class="entry">
-    <div class="symbol">
-      <img src="symbols/疑問図鑑_019.png" alt="疑問図鑑 019">
-    </div>
-    <div class="text">
-      <p>
-        「思考の堂々巡り」または「最初からやり直すべき直感」を表す記号。
-        疑問番号　016...018　と同じ作者である 名前　ゼットサンド
-
-        
-      </p>
-      <div class="memo">
-        疑問図鑑 019
-      </div>
-    </div>
+                                 <div class="entry">
+  <div class="symbol">
+    <img src="symbols/疑問図鑑_019.png" alt="018">
   </div>
+
+  <div class="text">
+    <div class="symbol-name">
+      名前：ゼット　サンド
+    </div>
+
+    <div class="author">
+      <span class="author-label">作者：</span>
+      <span class="author-name">不明</span>
+    </div>
+
+    <p>意味：「思考の堂々巡り」または「一からやり治すべき直感」を表す記号</p>
+    <p>由来：不明</p>
+
+    <div class="memo">疑問図鑑 019</div>
+  </div>
+</div>
+
 
   
 
