@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>架空疑問展 | 記号アーカイブ</title>
   <link rel="icon" href="symbols/疑問図鑑_000.png">
-
   <style>
     :root {
       --bg-color: #fafafa;
@@ -35,33 +34,67 @@
     }
 
     /* 画面表示制御 */
-    #home-screen, #main-contents, .settings-trigger {
+    #home-screen, #main-contents {
       display: none;
       opacity: 0;
     }
 
-    /* サイドメニュー */
+    /* --- 設定ボタン（最前面固定） --- */
     .settings-trigger {
-      position: fixed; top: 20px; right: 20px; z-index: 11000;
-      background: var(--box-bg); color: var(--text-color);
-      border: 1px solid var(--border-color); padding: 10px 15px;
-      cursor: pointer; font-family: inherit; border-radius: 0;
+      position: fixed; 
+      top: 20px; 
+      right: 20px; 
+      z-index: 100001; 
+      background: var(--box-bg); 
+      color: var(--text-color);
+      border: 1px solid var(--border-color); 
+      padding: 10px 15px;
+      cursor: pointer; 
+      font-family: inherit;
+      display: none; 
     }
 
+    /* --- サイドメニュー --- */
     #side-menu {
-      position: fixed; top: 0; right: -300px; width: 250px; height: 100%;
-      background: var(--box-bg); border-left: 1px solid var(--border-color);
-      z-index: 13000; padding: 40px 20px;
+      position: fixed; 
+      top: 0; 
+      right: -320px; 
+      width: 250px; 
+      height: 100%;
+      background: var(--box-bg); 
+      border-left: 2px solid var(--border-color);
+      z-index: 100002; 
+      padding: 40px 20px;
       transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    #side-menu.open { right: 0; }
-    .menu-close { position: absolute; top: 10px; left: 10px; cursor: pointer; border: none; background: none; color: var(--text-color); font-size: 1.5rem; }
+    #side-menu.open { right: 0 !important; }
 
-    /* レイアウト */
+    /* --- 背景アニメーション --- */
+    #floating-layer { 
+      position: fixed; 
+      inset: 0; 
+      pointer-events: none; 
+      z-index: 0; 
+      overflow: hidden;
+    }
+
+    .floating-symbol {
+      position: absolute;
+      opacity: 0.08;
+      animation: float-up 25s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float-up {
+      from { transform: translateY(110vh) rotate(0deg); }
+      to { transform: translateY(-20vh) rotate(360deg); }
+    }
+
+    /* --- その他レイアウト --- */
     #loading-screen {
       position: fixed; inset: 0; background: var(--bg-color);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 10000; transition: opacity 0.8s ease;
+      z-index: 100000; transition: opacity 0.8s ease;
     }
     .loader-icon { width: 100px; height: 100px; margin-bottom: 20px; animation: spin 2s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -69,33 +102,52 @@
     #home-screen {
       position: fixed; inset: 0; background: var(--bg-color);
       display: none; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 9000; transition: opacity 1s ease;
+      z-index: 10;
     }
     .home-title { font-size: 2.8rem; letter-spacing: 0.5em; margin-bottom: 50px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
 
-    #main-contents { max-width: 900px; margin: auto; transition: opacity 1s ease; position: relative; z-index: 1; }
-    .main-header { border-bottom: solid 3px var(--accent-color); margin-bottom: 30px; padding-bottom: 10px; }
-    .main-header h1 { margin: 0; font-size: 2.2rem; }
-    .provider-label { font-size: 0.9rem; opacity: 0.7; }
+    /* --- 【修正点】ホーム画面ボタンの隙間 --- */
+    .menu-container {
+      display: flex;
+      gap: 20px; /* ボタン同士の横の隙間 */
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .menu-button { 
+      background: none; 
+      border: 1px solid var(--border-color); 
+      color: var(--text-color); 
+      padding: 12px 30px; 
+      cursor: pointer; 
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
 
-    .filter-menu { margin: 20px 0 40px 0; display: flex; gap: 10px; }
-    .filter-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 5px 15px; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
-    .filter-btn.active { background: var(--text-color); color: var(--bg-color); }
-
-    .entry { display: flex; gap: 24px; margin-bottom: 60px; transition: 0.3s; position: relative; z-index: 2; }
+    #main-contents { max-width: 900px; margin: auto; position: relative; z-index: 1; }
+    .entry { display: flex; gap: 24px; margin-bottom: 60px; }
     .entry.hidden-filter { display: none !important; }
     .symbol img { width: 90px; height: auto; border: 1px solid #ddd; background: #fff; padding: 5px; }
-    .symbol img.hidden { opacity: 0; pointer-events: none; } /* 007ギミック用 */
+    
+    /* --- 【修正点】フィルタボタンの隙間 --- */
+    .filter-menu { 
+      display: flex; 
+      gap: 12px; /* フィルタボタン同士の横の隙間 */
+      margin-bottom: 40px; 
+    }
 
-    .menu-button { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 12px 30px; cursor: pointer; font-family: inherit; font-size: 1rem; margin: 5px; }
-    .memo { font-size: 0.85rem; color: var(--memo-color); margin-top: 8px; font-family: monospace; }
-
-    #floating-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .floating-symbol { position: absolute; opacity: 0.06; animation: float 25s linear infinite; }
-    @keyframes float { from { transform: translateY(110vh); } to { transform: translateY(-20vh); } }
-
-    /* モーダル：z-indexを最強に設定 */
-    #about-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 20000; opacity: 0; transition: opacity 0.3s ease; }
+    .filter-btn { 
+      background: none; 
+      border: 1px solid var(--border-color); 
+      color: var(--text-color); 
+      padding: 5px 15px; 
+      cursor: pointer; 
+      transition: 0.2s;
+    }
+    .filter-btn.active { background: var(--text-color); color: var(--bg-color); }
+    
+    #about-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 100005; opacity: 0; transition: opacity 0.3s ease; }
     .modal-content { max-width: 600px; background: var(--box-bg); color: var(--text-color); padding: 40px; border: 1px solid var(--border-color); }
   </style>
 </head>
@@ -103,17 +155,18 @@
 
   <div id="floating-layer"></div>
 
-  <button class="settings-trigger" onclick="toggleSideMenu()">⚙ 設定</button>
+  <button class="settings-trigger" id="settings-btn" onclick="toggleSideMenu()">⚙ 設定</button>
+
   <div id="side-menu">
-    <button class="menu-close" onclick="toggleSideMenu()">×</button>
-    <h3 style="border-bottom: 1px solid var(--border-color);">端末設定</h3>
-    <p>閲覧モード変更</p>
-    <button class="menu-button" style="width:100%" onclick="toggleTheme()">ダークモード 切替</button>
+    <button style="position: absolute; top: 10px; left: 10px; background:none; border:none; color:var(--text-color); font-size:1.8rem; cursor:pointer;" onclick="toggleSideMenu()">×</button>
+    <h3 style="border-bottom: 1px solid var(--border-color); margin-top:20px;">端末設定</h3>
+    <p>閲覧モード切替</p>
+    <button class="menu-button" style="width:100%" onclick="toggleTheme()">ダークモード ON/OFF</button>
   </div>
 
   <div id="loading-screen">
-    <img src="symbols/ロード.png" class="loader-icon" id="loader-img">
-    <div class="loader-text" id="loader-status">システム起動中...</div>
+    <img src="symbols/ロード.png" class="loader-icon">
+    <div class="loader-text">システム起動中...</div>
   </div>
 
   <div id="home-screen">
@@ -125,16 +178,14 @@
   </div>
 
   <div id="main-contents">
-    <div class="main-header">
+    <div style="border-bottom: solid 3px var(--accent-color); margin-bottom: 30px;">
       <h1>記号アーカイブ</h1>
-      <div class="provider-label">提供：世界記号統一団体</div>
+      <div style="font-size: 0.9rem; opacity: 0.7;">提供：世界記号統一団体</div>
     </div>
 
-    <div style="margin-bottom: 20px;">
-      <button class="menu-button" style="padding: 8px 20px; font-size: 0.9rem;" onclick="showScreen('home-screen')">← ポータルへ戻る</button>
-    </div>
+    <button class="menu-button" style="padding: 8px 20px; font-size: 0.9rem; margin-bottom: 20px;" onclick="showScreen('home-screen')">← ポータルへ戻る</button>
 
-    <div class="filter-menu">
+    <div class="filter-menu" style="display: flex; gap: 10px; margin-bottom: 40px;">
       <button class="filter-btn active" onclick="filterEntries(event, 'all')">すべて表示</button>
       <button class="filter-btn" onclick="filterEntries(event, 'art')">アート系</button>
       <button class="filter-btn" onclick="filterEntries(event, 'unknown')">作者不明</button>
@@ -436,107 +487,76 @@
 
 <h5 style="text-align: center; margin: 50px 0; opacity: 0.6;">
   現在図鑑に登録されているのはここまでです。新しい記号が登録されるまでお待ち下さい。</h5>
-
-      </div>
-    </div>
-
-    </div>
+ 
+</div>
+</div>
 
   <div id="about-modal">
     <div class="modal-content">
-      <h3>架空疑問展：組織憲章</h3>
-      <p>世界記号統一団体が管理する「意味を失った記号」たちの保管庫です。</p>
-      <p>当アーカイブは、日常の隙間に消えていった問いを拾い集める非公式組織によって運営されています。</p>
+      <h3>組織憲章</h3>
+      <p>このアーカイブは世界に散らばった「問い」の断片を収集しています。</p>
 
-            <div style="background: rgba(128, 128, 128, 0.1); border-left: 4px solid var(--accent-color); padding: 15px; margin: 20px 0; font-size: 0.9rem;">
+          <div style="background: rgba(128, 128, 128, 0.1); border-left: 4px solid var(--accent-color); padding: 15px; margin: 20px 0; font-size: 0.9rem;">
         <strong>【警告 / Disclaimer】</strong><br>
         本ウェブサイトの内容はすべて異世界の記号<strong>（創作）</strong>です。実在の人物、団体、事件、および実在する学術的記号とは一切関係ありません。また、ここに掲載されている記号を実際の文書等で使用した際に生じる混乱について、当組織は一切の責任を負いません。
       </div>
-      
-      <button class="menu-button" style="width: 100%; margin-top: 20px;" onclick="closeAbout()">了解</button>
+
+      <button class="menu-button" style="width: 100%;" onclick="closeAbout()">閉じる</button>
     </div>
   </div>
 
   <script>
-    // --- 画面遷移 ---
     function showScreen(screenId) {
-      const screens = ['loading-screen', 'home-screen', 'main-contents'];
-      screens.forEach(id => {
+      ['loading-screen', 'home-screen', 'main-contents'].forEach(id => {
         const el = document.getElementById(id);
         if (el) { el.style.display = 'none'; el.style.opacity = '0'; }
       });
-
       const target = document.getElementById(screenId);
       target.style.display = (screenId === 'main-contents') ? 'block' : 'flex';
-      setTimeout(() => { target.style.opacity = '1'; }, 50);
-
-      // 設定ボタンの表示制御
-      document.querySelector('.settings-trigger').style.display = (screenId === 'loading-screen') ? 'none' : 'block';
+      setTimeout(() => target.style.opacity = '1', 50);
+      document.getElementById('settings-btn').style.display = (screenId === 'loading-screen') ? 'none' : 'block';
     }
 
-    // --- ロード演出 ---
     window.addEventListener('load', () => {
-      setTimeout(() => { showScreen('home-screen'); }, 3000);
+      setTimeout(() => showScreen('home-screen'), 3000);
       initFloatingSymbols();
     });
 
-    // --- サイドメニュー ---
-    function toggleSideMenu() {
-      document.getElementById('side-menu').classList.toggle('open');
-    }
+    function toggleSideMenu() { document.getElementById('side-menu').classList.toggle('open'); }
 
     function toggleTheme() {
       const body = document.body;
-      const current = body.getAttribute('data-theme');
-      body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     }
 
-    // --- 【修正済み】フィルタ機能 ---
     function filterEntries(e, type) {
-      // ボタンのActiveクラス切り替え
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
       e.currentTarget.classList.add('active');
-
       document.querySelectorAll('.entry').forEach(entry => {
         const category = entry.getAttribute('data-category');
-        const author = entry.querySelector('.author-name') ? entry.querySelector('.author-name').innerText : "";
-
-        if (type === 'all') {
-          entry.classList.remove('hidden-filter');
-        } else if (type === 'art') {
-          if (category === 'art') entry.classList.remove('hidden-filter');
-          else entry.classList.add('hidden-filter');
-        } else if (type === 'unknown') {
-          // 「不明」という文字を含む作者名だけを表示
-          if (author.includes('不明')) entry.classList.remove('hidden-filter');
-          else entry.classList.add('hidden-filter');
-        }
+        const author = entry.querySelector('.author-name')?.innerText || "";
+        if (type === 'all') entry.classList.remove('hidden-filter');
+        else if (type === 'art') category === 'art' ? entry.classList.remove('hidden-filter') : entry.classList.add('hidden-filter');
+        else if (type === 'unknown') author.includes('不明') ? entry.classList.remove('hidden-filter') : entry.classList.add('hidden-filter');
       });
     }
 
-    // --- 【修正済み】モーダル操作 ---
-    function openAbout() {
-      const modal = document.getElementById('about-modal');
-      modal.style.display = 'flex';
-      setTimeout(() => { modal.style.opacity = '1'; }, 10);
-    }
-    function closeAbout() {
-      const modal = document.getElementById('about-modal');
-      modal.style.opacity = '0';
-      setTimeout(() => { modal.style.display = 'none'; }, 300);
-    }
+    function openAbout() { const m = document.getElementById('about-modal'); m.style.display = 'flex'; setTimeout(() => m.style.opacity = '1', 10); }
+    function closeAbout() { const m = document.getElementById('about-modal'); m.style.opacity = '0'; setTimeout(() => m.style.display = 'none', 300); }
 
-    // --- 背景の浮遊演出 ---
+    // --- 【修正】浮遊記号の生成とアニメーション適用 ---
     function initFloatingSymbols() {
       const layer = document.getElementById("floating-layer");
       const symbols = ["symbols/疑問図鑑_001.png", "symbols/疑問図鑑_007.png", "symbols/疑問図鑑_015.png"];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 15; i++) {
         const el = document.createElement("img");
         el.src = symbols[Math.floor(Math.random() * symbols.length)];
         el.className = "floating-symbol";
-        el.style.left = Math.random() * 100 + "vw"; el.style.top = Math.random() * 100 + "vh";
-        el.style.animationDuration = 20 + Math.random() * 10 + "s";
-        el.style.width = 40 + Math.random() * 30 + "px";
+        // ランダムな配置と速度
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = (15 + Math.random() * 20) + "s";
+        el.style.animationDelay = (Math.random() * -20) + "s"; // 最初から画面内に出現させる
+        el.style.width = (30 + Math.random() * 40) + "px";
         layer.appendChild(el);
       }
     }
