@@ -2,24 +2,78 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>架空疑問展 | 世界記号統一団体アーカイブ</title>
+  <title>架空疑問展</title>
   <link rel="icon" href="symbols/疑問図鑑_000.png">
 
   <style>
+    /* --- デザイン変数（ダークモード対応） --- */
+    :root {
+      --bg-color: #fafafa;
+      --text-color: #222;
+      --accent-color: #516ab6;
+      --box-bg: #ffffff;
+      --border-color: #000000;
+      --memo-color: #666;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --text-color: #e0e0e0;
+      --accent-color: #8fa3e2;
+      --box-bg: #2d2d2d;
+      --border-color: #ffffff;
+      --memo-color: #aaa;
+    }
+
     body {
       font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
-      background: #fafafa;
-      color: #222;
+      background: var(--bg-color);
+      color: var(--text-color);
       margin: 40px;
       line-height: 1.8;
+      transition: background 0.3s, color 0.3s;
       overflow-x: hidden;
     }
+
+    /* --- 設定ボタン（ロード中は隠す） --- */
+    .settings-trigger {
+      display: none; /* 最初は非表示 */
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11000;
+      background: var(--box-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 10px 15px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem;
+    }
+
+    /* --- 設定パネル --- */
+    #settings-panel {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100%;
+      background: var(--box-bg);
+      border-left: 2px solid var(--border-color);
+      z-index: 12000;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+    #settings-panel.open { right: 0; }
+    .settings-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+    .settings-body { padding: 20px; }
+    .setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 
     /* --- ロード画面 --- */
     #loading-screen {
       position: fixed;
       inset: 0;
-      background: #fff;
+      background: var(--bg-color);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -29,68 +83,66 @@
     }
     .loader-icon { width: 100px; height: 100px; margin-bottom: 20px; animation: spin 2s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .loader-text { font-size: 1.2rem; font-weight: bold; }
+    .loader-text { font-size: 1.1rem; letter-spacing: 0.2em; font-weight: bold; }
 
     /* --- ホーム画面 --- */
     #home-screen {
       position: fixed;
       inset: 0;
-      background: #fff;
-      display: none; /* 初期は非表示 */
+      background: var(--bg-color);
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 9000;
-      text-align: center;
       opacity: 0;
       transition: opacity 1s ease;
     }
-    .home-title { font-size: 2rem; letter-spacing: 0.5em; margin-bottom: 50px; border-bottom: 1px solid #000; padding-bottom: 10px; }
-    .menu-container { display: flex; flex-direction: column; gap: 20px; }
-    .menu-button { background: none; border: 1px solid #000; padding: 15px 40px; font-family: inherit; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; }
-    .menu-button:hover { background: #000; color: #fff; }
+    .home-title { font-size: 2.5rem; letter-spacing: 0.5em; margin-bottom: 50px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+    .menu-button { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 15px 40px; cursor: pointer; font-family: inherit; font-size: 1rem; margin: 10px; transition: 0.3s; }
+    .menu-button:hover { background: var(--text-color); color: var(--bg-color); }
 
-    /* --- 図鑑本体（初期状態で非表示） --- */
-    #main-contents {
-      display: none; /* ここが重要：最初は物理的に消しておく */
-      opacity: 0;
-      transition: opacity 1s ease;
-      position: relative;
-      z-index: 1;
-    }
+    /* --- 図鑑本体 --- */
+    #main-contents { display: none; opacity: 0; transition: opacity 1s ease; position: relative; z-index: 1; }
+    h1 { border-bottom: solid 3px var(--accent-color); padding: 0.5em; font-size: 2.2rem; }
+    .filter-menu { margin: 20px 0 40px 0; display: flex; gap: 10px; }
+    .filter-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 5px 15px; cursor: pointer; font-family: inherit; }
+    .filter-btn.active { background: var(--text-color); color: var(--bg-color); }
 
-    /* 組織説明モーダル */
-    #about-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.98);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10005;
-      padding: 40px;
-    }
-    .modal-content { max-width: 600px; border: 1px solid #000; padding: 40px; background: #fff; box-shadow: 10px 10px 0 rgba(0,0,0,0.1); }
+    .entry { display: flex; gap: 24px; margin-bottom: 60px; transition: 0.3s; }
+    .entry.hidden-filter { display: none; }
+    .symbol img { width: 80px; height: auto; }
+    .memo { font-size: 0.85rem; color: var(--memo-color); margin-top: 8px; }
 
-    /* 背景アニメーション */
     #floating-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .floating-symbol { position: absolute; opacity: 0.08; animation: float 20s linear infinite; filter: blur(0.3px); }
+    .floating-symbol { position: absolute; opacity: 0.08; animation: float 20s linear infinite; }
     @keyframes float { from { transform: translateY(110vh); } to { transform: translateY(-20vh); } }
 
-    /* エントリ一スタイル */
-    p { margin: 0.5em 0; }
-    h1 { padding: 0.5em; color: #010101; border-bottom: solid 3px #516ab6; margin-top: 0; }
-    .entry { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 56px; }
-    .symbol img { width: 80px; height: auto; }
-    .memo { font-size: 0.85rem; color: #666; margin-top: 8px; }
+    #about-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 10005; }
+    .modal-content { max-width: 600px; background: var(--box-bg); color: var(--text-color); padding: 40px; border: 1px solid var(--border-color); }
   </style>
 </head>
 
-<body>
+<body data-theme="light">
+
+  <button class="settings-trigger" onclick="toggleSettings()">⚙ 設定</button>
+
+  <div id="settings-panel">
+    <div class="settings-header">
+      <span>アーカイブ設定</span>
+      <button onclick="toggleSettings()" style="background:none; border:none; cursor:pointer; color:var(--text-color);">×</button>
+    </div>
+    <div class="settings-body">
+      <div class="setting-item">
+        <label>ダークモード切り替え</label>
+        <button class="menu-button" style="padding: 5px 15px; font-size: 0.8rem;" onclick="toggleTheme()">切替</button>
+      </div>
+    </div>
+  </div>
 
   <div id="loading-screen">
     <img src="symbols/ロード.png" class="loader-icon" id="loader-img">
-    <div class="loader-text" id="loader-status">データベースを参照しています...</div>
+    <div class="loader-text" id="loader-status">システム起動中...</div>
   </div>
 
   <div id="home-screen">
@@ -102,8 +154,13 @@
   </div>
 
   <div id="main-contents">
+    <h1>架空疑問展</h1>
 
-  <h1>架空疑問展</h1>
+    <div class="filter-menu">
+      <button class="filter-btn active" onclick="filterEntries('all')">すべて表示</button>
+      <button class="filter-btn" onclick="filterEntries('art')">アート系</button>
+      <button class="filter-btn" onclick="filterEntries('unknown')">作者不明</button>
+    </div>
 
 <div class="entry">
   <div class="symbol">
@@ -487,8 +544,9 @@
 
   <!-- 疑問図鑑 0015 -->
 
-<div class="entry">
+<div class="entry" data-category="art">
   <div class="symbol">
+
     <img src="symbols/疑問図鑑_015.png" alt="疑問図鑑 015">
   </div>
 
@@ -517,7 +575,7 @@
 
   <!-- 疑問図鑑 0016 -->
 
-<div class="entry">
+<div class="entry" data-category="art">
   <div class="symbol">
     <img src="symbols/疑問図鑑_016.png" alt="疑問図鑑 016">
   </div>
@@ -549,7 +607,7 @@
 
                             <!-- 疑問図鑑 0017 -->
 
-<div class="entry">
+<div class="entry" data-category="art">
   <div class="symbol">
     <img src="symbols/疑問図鑑_017.png" alt="疑問図鑑 017">
   </div>
@@ -579,7 +637,7 @@
 </div>
 
                               <!-- 疑問図鑑 0018 -->
-<div class="entry">
+<div class="entry" data-category="art">
   <div class="symbol">
     <img src="symbols/疑問図鑑_018.png" alt="018">
   </div>
@@ -604,7 +662,7 @@
 
 
                                 <!-- 疑問図鑑 0019 -->
-                                 <div class="entry">
+<div class="entry" data-category="art">
   <div class="symbol">
     <img src="symbols/疑問図鑑_019.png" alt="018">
   </div>
@@ -625,104 +683,127 @@
     <div class="memo">疑問図鑑 019</div>
   </div>
 </div>
-
-
-  
-
-
   <h5>現在図鑑に登録されているのはここまでです。　新しい記号が登録されるまでお待ち下さい。</h5>
+
   </div>
 
-  <div id="about-modal">
+<div id="about-modal">
     <div class="modal-content">
-      <h3 style="border-left: 4px solid #000; padding-left: 10px;">世界記号統一団体について</h3>
-      <p>当団体は、既存の言語体系では説明のつかない記号を収集しています。</p>
-      <div style="background: #f0f0f0; padding: 15px; margin: 20px 0; font-size: 0.9rem; border-left: 2px solid #666;">
-        <strong>【管理者通知】</strong><br>
-        本サイトは創作物（ジョークサイト）です。実在の事象とは関係ありません。
+      <h3 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">架空疑問展について</h3>
+      
+      <p>当団体は、既存の言語体系では説明のつかない記号や、意味を失った図形を収集・保管するアーカイブ組織です。</p>
+      
+      <div style="background: rgba(128, 128, 128, 0.1); border-left: 4px solid var(--accent-color); padding: 15px; margin: 20px 0; font-size: 0.9rem;">
+        <strong>【警告 / Disclaimer】</strong><br>
+        本ウェブサイトの内容はすべて異世界の記号<strong>（創作）</strong>です。実在の人物、団体、事件、および実在する学術的記号とは一切関係ありません。また、ここに掲載されている記号を実際の文書等で使用した際に生じる混乱について、当組織は一切の責任を負いません。
       </div>
-      <button class="menu-button" style="width: 100%;" onclick="document.getElementById('about-modal').style.display='none'">記録を閉じる</button>
+
+      <p style="font-size: 0.8rem; text-align: right; color: var(--memo-color);">© 空間疑問展製作委員会</p>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="menu-button" style="width: 100%;" onclick="document.getElementById('about-modal').style.display='none'">記録を閉じて戻る</button>
+      </div>
     </div>
   </div>
 
   <div id="floating-layer"></div>
 
   <script>
-    // --- 1. 延長ロード演出 ---
+    // --- 1. ロード演出 & 設定ボタン表示制御 ---
+    const loadMessages = [
+      "データベースを参照しています",
+      "本人確認中",
+      "データを構築中",
+      "破損がないか確認をしています",
+      "データの信憑性を確認しています",
+      "画面を構築しています"
+    ];
+
     window.addEventListener('load', () => {
       const status = document.getElementById('loader-status');
       const img = document.getElementById('loader-img');
       const screen = document.getElementById('loading-screen');
       const home = document.getElementById('home-screen');
+      const settingsBtn = document.querySelector('.settings-trigger');
 
-      const messages = [
-        "データベースへアクセス中...",
-        "本人確認をしています",
-        "データ破損がないか確認しています",
-        "アーカイブの整合性を確認しています...",
-        "完了しました！"
-      ];
+      status.innerText = loadMessages[Math.floor(Math.random() * loadMessages.length)];
 
-      let msgIndex = 0;
-      const msgInterval = setInterval(() => {
-        if (msgIndex < messages.length - 1) {
-          status.innerText = messages[msgIndex];
-          msgIndex++;
-        } else {
-          clearInterval(msgInterval);
-        }
-      }, 1200);
-
-      // 6秒後に回転停止
       setTimeout(() => {
         status.innerText = "完了しました！";
         img.style.animationPlayState = "paused";
-      }, 6000);
+      }, 5000);
 
-      // 7.5秒後にロード画面を消してホームを表示
       setTimeout(() => {
         screen.style.opacity = "0";
-        home.style.display = "flex"; // ここでホームを準備
+        home.style.display = "flex";
+        
+        // ロードが終わったら設定ボタンを表示
+        if (settingsBtn) settingsBtn.style.display = "block";
+
         setTimeout(() => {
           screen.style.display = "none";
-          home.style.opacity = "1"; // ふわっと表示
+          home.style.opacity = "1";
         }, 800);
-      }, 7500);
+      }, 6500);
     });
 
-    // --- 2. ボタン操作 (エラーが出ないようIDを確認) ---
-    document.getElementById('btn-browse').addEventListener('click', () => {
-      const home = document.getElementById('home-screen');
-      const main = document.getElementById('main-contents');
-      
-      home.style.opacity = '0';
-      setTimeout(() => {
-        home.style.display = 'none';
-        if(main) { // mainが存在するかチェック
-          main.style.display = 'block';
-          setTimeout(() => main.style.opacity = '1', 50);
+    // --- 2. 設定・テーマ機能 ---
+    function toggleSettings() {
+      document.getElementById('settings-panel').classList.toggle('open');
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    }
+
+    // --- 3. フィルタ機能 ---
+    function filterEntries(type) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const entries = document.querySelectorAll('.entry');
+      entries.forEach(entry => {
+        const authorName = entry.querySelector('.author-name').innerText;
+        const category = entry.getAttribute('data-category');
+
+        if (type === 'all') {
+          entry.classList.remove('hidden-filter');
+        } else if (type === 'art') {
+          if (category === 'art') entry.classList.remove('hidden-filter');
+          else entry.classList.add('hidden-filter');
+        } else if (type === 'unknown') {
+          if (authorName === '不明') entry.classList.remove('hidden-filter');
+          else entry.classList.add('hidden-filter');
         }
-        window.scrollTo(0, 0);
-      }, 500);
+      });
+    }
+
+    // 基本ボタン操作
+    document.getElementById('btn-browse').addEventListener('click', () => {
+      document.getElementById('home-screen').style.display = 'none';
+      const main = document.getElementById('main-contents');
+      main.style.display = 'block';
+      setTimeout(() => main.style.opacity = '1', 50);
     });
 
     document.getElementById('btn-about').addEventListener('click', () => {
       document.getElementById('about-modal').style.display = 'flex';
     });
 
-    // --- 3. 背景浮遊 ---
-    const symbols = ["symbols/疑問図鑑_001.png", "symbols/疑問図鑑_007.png", "symbols/疑問図鑑_015.png"];
+    // 背景浮遊
+    const symbolList = ["symbols/疑問図鑑_001.png", "symbols/疑問図鑑_007.png", "symbols/疑問図鑑_015.png"];
     const layer = document.getElementById("floating-layer");
     for (let i = 0; i < 12; i++) {
       const el = document.createElement("img");
-      el.src = symbols[Math.floor(Math.random() * symbols.length)];
+      el.src = symbolList[Math.floor(Math.random() * symbolList.length)];
       el.className = "floating-symbol";
       el.style.left = Math.random() * 100 + "vw";
-      el.style.animationDuration = 15 + Math.random() * 20 + "s";
-      el.style.width = 40 + Math.random() * 60 + "px";
+      el.style.animationDuration = 15 + Math.random() * 10 + "s";
+      el.style.width = 40 + Math.random() * 40 + "px";
       layer.appendChild(el);
     }
   </script>
-
 </body>
 </html>
