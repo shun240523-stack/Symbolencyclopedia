@@ -517,17 +517,28 @@
       document.getElementById('settings-btn').style.display = (screenId === 'loading-screen') ? 'none' : 'block';
     }
 
-    window.addEventListener('load', () => {
-      setTimeout(() => showScreen('home-screen'), 3000);
-      initFloatingSymbols();
-    });
+// --- ロード時の処理 ---
+  window.addEventListener('load', () => {
+// 保存された設定を読み込む
+  const savedTheme = localStorage.getItem('display-theme');
+  if (savedTheme) {
+    document.body.setAttribute('data-theme', savedTheme);
+  }
+
+  setTimeout(() => showScreen('home-screen'), 3000);
+  initFloatingSymbols();
+});
 
     function toggleSideMenu() { document.getElementById('side-menu').classList.toggle('open'); }
 
-    function toggleTheme() {
-      const body = document.body;
-      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
+function toggleTheme() {
+  const body = document.body;
+  const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  body.setAttribute('data-theme', newTheme);
+  
+  // ブラウザに設定を保存
+  localStorage.setItem('display-theme', newTheme);
+}
 
     function filterEntries(e, type) {
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
